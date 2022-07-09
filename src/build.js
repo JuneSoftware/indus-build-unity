@@ -69,7 +69,7 @@ async function run() {
             buildArgs += ` -androidKeyaliasPass "${androidKeyaliasPass}"`;
         }
 
-        await exec.exec(`${unityCmd} -batchmode -nographics -quit -logFile "-" ${buildArgs}`);
+        await exec.exec(`${unityCmd} -batchmode -nographics -logFile "-" ${buildArgs}`);
 
         core.setOutput('build-path', buildPath);
     } catch (error) {
