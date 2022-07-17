@@ -41,6 +41,9 @@ inputs:
   build-method-args:
     description: Custom arguments for build method
     required: false
+  build-sub-target:
+    description: Build Sub Target for Standalone
+    required: false
 outputs:
   build-path:
     description: Path to build output

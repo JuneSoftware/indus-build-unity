@@ -20,8 +20,9 @@ async function run() {
         const androidKeystorePass = core.getInput('android-keystore-pass');
         const androidKeyaliasName = core.getInput('android-keyalias-name');
         const androidKeyaliasPass = core.getInput('android-keyalias-pass');
-        let buildMethod = core.getInput('build-method');
         const buildMethodArgs = core.getInput('build-method-args');
+        const buildSubTarget = core.getInput('build-sub-target');
+        let buildMethod = core.getInput('build-method');
 
         if (!buildMethod) {
             buildMethod = 'kuler90.BuildCommand.Build';
@@ -43,6 +44,7 @@ async function run() {
         buildArgs += ` -buildTarget "${buildTatget}"`;
         buildArgs += ` -buildPath "${buildPath}"`;
         buildArgs += ` -executeMethod "${buildMethod}"`;
+        buildArgs += ` -standaloneBuildSubtarget "${buildSubTarget}"`;
         buildArgs += ` ${buildMethodArgs}`;
         if (buildVersion) {
             buildArgs += ` -buildVersion "${buildVersion}"`;
