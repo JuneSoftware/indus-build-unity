@@ -44,7 +44,6 @@ async function run() {
         buildArgs += ` -buildTarget "${buildTatget}"`;
         buildArgs += ` -buildPath "${buildPath}"`;
         buildArgs += ` -executeMethod "${buildMethod}"`;
-        buildArgs += ` -standaloneBuildSubtarget "${buildSubTarget}"`;
         buildArgs += ` ${buildMethodArgs}`;
         if (buildVersion) {
             buildArgs += ` -buildVersion "${buildVersion}"`;
@@ -69,6 +68,9 @@ async function run() {
         }
         if (androidKeyaliasPass) {
             buildArgs += ` -androidKeyaliasPass "${androidKeyaliasPass}"`;
+        }
+        if (buildSubTarget){
+            buildArgs += ` -standaloneBuildSubtarget "${buildSubTarget}"`;
         }
 
         await exec.exec(`${unityCmd} -batchmode -nographics -logFile "-" ${buildArgs}`);
