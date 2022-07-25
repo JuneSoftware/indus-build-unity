@@ -22,15 +22,10 @@ async function run() {
         const androidKeyaliasPass = core.getInput('android-keyalias-pass');
         const buildMethodArgs = core.getInput('build-method-args');
         const buildSubTarget = core.getInput('build-sub-target');
-        let buildMethod = core.getInput('build-method');
-
-        if (!buildMethod) {
-            buildMethod = 'kuler90.BuildCommand.Build';
-            const src = path.join(__dirname, 'BuildCommand.cs');
-            const dest = path.join(projectPath, 'Assets/kuler90/Editor');
-            await io.mkdirP(dest);
-            await io.cp(src, dest);
-        }
+        const buildCustomPlatform = core.getInput('build-custom-platform');
+        const buildEnvironment = core.getInput('build-environment');
+        const buildSymbolsMethod = core.getInput('build-symbols-method');
+        const buildMethod = core.getInput('build-method');
 
         let unityCmd = '';
         if (process.platform === 'linux') {
@@ -43,7 +38,6 @@ async function run() {
         buildArgs += ` -projectPath "${projectPath}"`;
         buildArgs += ` -buildTarget "${buildTatget}"`;
         buildArgs += ` -buildPath "${buildPath}"`;
-        buildArgs += ` -executeMethod "${buildMethod}"`;
         buildArgs += ` ${buildMethodArgs}`;
         if (buildVersion) {
             buildArgs += ` -buildVersion "${buildVersion}"`;
@@ -72,10 +66,20 @@ async function run() {
         if (buildSubTarget){
             buildArgs += ` -standaloneBuildSubtarget "${buildSubTarget}"`;
         }
+        if (buildCustomPlatform){
+            buildArgs += ` -target "${buildCustomPlatform}"`;
+        }
+        if (buildEnvironment){
+            buildArgs += ` -environment "${buildEnvironment}"`;
+        }
 
-        await exec.exec(`${unityCmd} -batchmode -nographics -logFile "-" ${buildArgs}`);
-
-        core.setOutput('build-path', buildPath);
+        if (buildSymbolsMethod)
+            await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildSymbolsMethod}"`);
+        if (buildMethod)
+            await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
+        else
+            core.setFailed('Build Method is not provided');
+            
     } catch (error) {
         core.setFailed(error.message);
     }

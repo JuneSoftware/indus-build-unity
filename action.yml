@@ -37,16 +37,22 @@ inputs:
     required: false
   build-method:
     description: Path to build method. For example, MyEditorScript.PerformBuild. Default build method will be used if not provided
-    required: false
+    required: true
   build-method-args:
     description: Custom arguments for build method
     required: false
   build-sub-target:
     description: Build Sub Target for Standalone
     required: false
-outputs:
-  build-path:
-    description: Path to build output
+  build-custom-platform:
+    description: Name of Custom build platform
+    required: true
+  build-environment:
+    description: Build Environment
+    required: true
+  build-symbols-method:
+    description: Path to symbols method. For example, MyEditorScript.SetSymbols. 
+    required: false
 runs:
   using: node12
   main: src/build.js
