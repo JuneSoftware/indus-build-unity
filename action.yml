@@ -50,12 +50,6 @@ inputs:
   build-environment:
     description: Build Environment
     required: true
-  build-symbols-method:
-    description: Path to symbols method. For example, MyEditorScript.SetSymbols. 
-    required: false
-  build-reset-method:
-    description: Path to reset method, to reset the changes made by the build process
-    required: true
 runs:
   using: node12
   main: src/build.js

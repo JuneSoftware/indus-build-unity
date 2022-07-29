@@ -24,9 +24,7 @@ async function run() {
         const buildSubTarget = core.getInput('build-sub-target');
         const buildCustomPlatform = core.getInput('build-custom-platform');
         const buildEnvironment = core.getInput('build-environment');
-        const buildSymbolsMethod = core.getInput('build-symbols-method');
         const buildMethod = core.getInput('build-method');
-        const buildResetMethod = core.getInput('build-reset-method');
 
         let unityCmd = '';
         if (process.platform === 'linux') {
@@ -74,12 +72,8 @@ async function run() {
             buildArgs += ` -environment "${buildEnvironment}"`;
         }
 
-        if (buildSymbolsMethod)
-            await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildSymbolsMethod}"`);
         if (buildMethod)
             await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
-        if (buildResetMethod)
-            await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildResetMethod}"`);
         else
             core.setFailed('Build Method is not provided');
             
