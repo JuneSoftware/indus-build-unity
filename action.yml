@@ -12,28 +12,28 @@ inputs:
     description: Build target
     required: true
   build-path:
-    description: Path to build output. Only for default build method
+    description: Path to build output.
     required: false
   build-version:
     required: false
-    description: Set application version. Only for default build method
+    description: Set application version.
   build-number:
-    description: Set application build number. Only for default build method
+    description: Set application build number.
     required: false
   build-defines:
-    description: Set scripting define symbols. For example, RELEASE_VERSION;ENG_VERSION. Only for default build method
+    description: Set scripting define symbols. For example, RELEASE_VERSION;ENG_VERSION
     required: false
-  android-keystore-base64:
-    description: The base64 contents of the android keystore file. Only for default build method
+  android-keystore-path:
+    description: The path of the android keystore file.
     required: false
   android-keystore-pass:
-    description: The android keystore password. Only for default build method
+    description: The android keystore password.
     required: false
   android-keyalias-name:
-    description: The android keyalias name. Only for default build method
+    description: The android keyalias name.
     required: false
   android-keyalias-pass:
-    description: The android keyalias password. Only for default build method
+    description: The android keyalias password.
     required: false
   build-method:
     description: Path to build method. For example, MyEditorScript.PerformBuild. Default build method will be used if not provided
