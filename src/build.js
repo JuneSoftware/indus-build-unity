@@ -25,6 +25,7 @@ async function run() {
         const buildCustomPlatform = core.getInput('build-custom-platform');
         const buildEnvironment = core.getInput('build-environment');
         const buildMethod = core.getInput('build-method');
+        const noGraphics = core.getInput('no-graphics');
 
         let unityCmd = '';
         if (process.platform === 'linux') {
@@ -71,9 +72,12 @@ async function run() {
         if (buildEnvironment){
             buildArgs += ` -environment "${buildEnvironment}"`;
         }
+        if (noGraphics && noGraphics.toUpperCase() === 'TRUE'){
+            buildArgs += ` -nographics`;
+        }
 
         if (buildMethod)
-            await exec.exec(`${unityCmd} -quit -batchmode -nographics -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
+            await exec.exec(`${unityCmd} -quit -batchmode -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
         else
             core.setFailed('Build Method is not provided');
             

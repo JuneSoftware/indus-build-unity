@@ -50,6 +50,9 @@ inputs:
   build-environment:
     description: Build Environment
     required: true
+  no-graphics:
+    description: Unity doesn't initialize the graphics device
+    required: false
 runs:
   using: node12
   main: src/build.js
