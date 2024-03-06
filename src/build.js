@@ -10,8 +10,7 @@ async function run() {
             throw new Error('unity path not found');
         }
         const projectPath = core.getInput('project-path');
-        const buildTatget = core.getInput('build-target', { required: true });
-        const buildPath = core.getInput('build-path') || path.join('./builds', buildTatget);
+        const buildTarget = core.getInput('build-target', { required: true });
         const buildVersion = core.getInput('build-version');
         const buildNumber = core.getInput('build-number');
         const buildDefines = core.getInput('build-defines');
@@ -26,6 +25,7 @@ async function run() {
         const buildEnvironment = core.getInput('build-environment');
         const buildMethod = core.getInput('build-method');
         const noGraphics = core.getInput('no-graphics');
+        const buildConfigPath = core.getInput('build-config');
 
         let unityCmd = '';
         if (process.platform === 'linux') {
@@ -36,8 +36,7 @@ async function run() {
 
         let buildArgs = '';
         buildArgs += ` -projectPath "${projectPath}"`;
-        buildArgs += ` -buildTarget "${buildTatget}"`;
-        buildArgs += ` -buildPath "${buildPath}"`;
+        buildArgs += ` -buildTarget "${buildTarget}"`;
         buildArgs += ` ${buildMethodArgs}`;
         if (buildVersion) {
             buildArgs += ` -buildVersion "${buildVersion}"`;
@@ -74,6 +73,9 @@ async function run() {
         }
         if (noGraphics && noGraphics.toUpperCase() === 'TRUE'){
             buildArgs += ` -nographics`;
+        }
+        if (buildConfigPath){
+            buildArgs += ` -buildConfig "${buildConfigPath}"`;
         }
 
         if (buildMethod)

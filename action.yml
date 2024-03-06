@@ -53,6 +53,9 @@ inputs:
   no-graphics:
     description: Unity doesn't initialize the graphics device
     required: false
+  build-config:
+    description: 'Unity build config path'
+    required: true
 runs:
   using: node12
   main: src/build.js
