@@ -78,8 +78,12 @@ async function run() {
             buildArgs += ` -buildConfig "${buildConfigPath}"`;
         }
 
-        if (buildMethod)
-            await exec.exec(`${unityCmd} -quit -batchmode -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
+        if (buildMethod) {
+            let prefix = ``;
+            if (process.platform === 'win32') 
+                prefix = `cmd /c `
+            await exec.exec(`${prefix}${unityCmd} -quit -batchmode -logFile "-" ${buildArgs} -executeMethod "${buildMethod}"`);
+        }
         else
             core.setFailed('Build Method is not provided');
             
